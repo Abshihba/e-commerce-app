@@ -1,28 +1,29 @@
 <template>
   <FadeTransitionGroup class="products-list">
     <li
-      class="products-list__item"
-      v-for="product in productsToRender"
-      :key="product.id"
+        class="products-list__item"
+        v-for="product in productsToRender"
+        :key="product.id"
     >
       <Card
-        :image="product.image"
-        :price="product.price"
-        :title="product.title"
-        :rating="product.rating"
-        :id="product.id"
+          :image="product.image"
+          :price="product.price"
+          :title="product.title"
+          :rating="product.rating"
+          :id="product.id"
+          :description="product.description"
       />
     </li>
   </FadeTransitionGroup>
 
   <div
-    class="products-list__show-more"
-    v-if="itemsCountToRender < products.length"
+      class="products-list__show-more"
+      v-if="itemsCountToRender < products.length"
   >
     <ShowMore
-      :count="itemsCountToRender"
-      :listLength="products.length"
-      @onShowMoreClick="handleShowMore"
+        :count="itemsCountToRender"
+        :listLength="products.length"
+        @onShowMoreClick="handleShowMore"
     />
   </div>
 </template>
@@ -48,14 +49,14 @@ const handleShowMore = (count) => {
 };
 
 const productsToRender = computed(() =>
-  props.products.slice(0, itemsCountToRender.value)
+    props.products.slice(0, itemsCountToRender.value)
 );
 
 watch(
-  () => props.products,
-  () => {
-    itemsCountToRender.value = PRODUCTS_LIMIT;
-  }
+    () => props.products,
+    () => {
+      itemsCountToRender.value = PRODUCTS_LIMIT;
+    }
 );
 </script>
 

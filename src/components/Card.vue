@@ -7,13 +7,13 @@
 
           <div class="card__like-btn">
             <BaseIconButton
-              @click="like"
-              variant="contained"
-              iconColor="lightgray"
-              iconHoverColor="#ef2525"
-              iconActiveColor="#ef2525"
-              :isActive="isProductLiked"
-              opacity="0.5"
+                @click="like"
+                variant="contained"
+                iconColor="lightgray"
+                iconHoverColor="#ef2525"
+                iconActiveColor="#ef2525"
+                :isActive="isProductLiked"
+                opacity="0.5"
             >
               <LikeIcon />
             </BaseIconButton>
@@ -28,6 +28,8 @@
         </div>
 
         <h3 class="card__price">${{ price }}</h3>
+
+        <p class="card__description">{{ description }}</p>
 
         <div class="card__actions" v-if="!isProductInCart">
           <QuantityBlock @decrement="decrementQuantity" @increment="incrementQuantity" :quantity="quantity" />
@@ -82,6 +84,10 @@ const props = defineProps({
     type: Number,
     required: true,
   },
+  description: {
+    type: String,
+    required: true,
+  },
 });
 
 const [quantity, incrementQuantity, decrementQuantity] = useQuantity();
@@ -98,6 +104,7 @@ const product = computed(() => {
     image: props.image,
     quantity,
     rating: props.rating,
+    description: props.description,
   };
 });
 
@@ -131,6 +138,7 @@ const addToCart = () => {
   align-items: flex-start;
   min-height: 412px;
 }
+
 .card__image-container {
   align-self: center;
   position: relative;
@@ -172,6 +180,12 @@ const addToCart = () => {
   font-weight: 600;
   font-size: 22px;
   line-height: 30px;
+}
+
+.card__description {
+  font-size: 14px;
+  line-height: 20px;
+  margin: 10px 0;
 }
 
 .card__actions {

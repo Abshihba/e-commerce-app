@@ -7,6 +7,45 @@ const BASE_URL = 'https://fakestoreapi.com/products';
 const FETCH_ERROR_MESSAGE = "Something went wrong. I'll try to fetch data again in";
 const SERVER_ERROR_MESSAGE = 'We are sorry. Server is temporarily down. Please try again later';
 
+// Функция для изменения описания, названия и категорий продуктов
+const adaptProductData = (product) => {
+  const carNames = [
+    'BMW X5',
+    'Audi Q7',
+    'Mercedes-Benz GLC',
+    'Lexus RX',
+    'Tesla Model X'
+  ];
+
+  const carDescriptions = [
+    'Пробег: 20,000 км. Полный привод, кожаный салон, навигационная система.',
+    'Пробег: 35,000 км. Бензиновый двигатель, панорамная крыша, климат-контроль.',
+    'Пробег: 15,000 км. Дизельный двигатель, автоматическая трансмиссия, подогрев сидений.',
+    'Пробег: 25,000 км. Гибридный двигатель, система помощи при парковке, круиз-контроль.',
+    'Пробег: 10,000 км. Электрический двигатель, автопилот, премиум аудиосистема.'
+  ];
+
+  const carCategories = [
+    'sedan',
+    'suv',
+    'coupe',
+    'convertible',
+    'hatchback'
+  ];
+
+  const randomIndex = Math.floor(Math.random() * carNames.length);
+
+  return {
+    id: product.id,
+    title: carNames[randomIndex],
+    image: product.image,
+    price: product.price,
+    rating: { rate: product.rating.rate },
+    category: carCategories[randomIndex],
+    description: carDescriptions[randomIndex]
+  };
+};
+
 export const useProductStore = defineStore('products', {
   state: () => {
     return {
@@ -51,7 +90,10 @@ export const useProductStore = defineStore('products', {
           throw new Error(FETCH_ERROR_MESSAGE, { cause: { status: response.status } });
         }
 
-        this.products = await response.json();
+        const data = await response.json();
+
+        // Адаптируем данные к структуре автомобилей
+        this.products = data.map(adaptProductData);
       } catch (e) {
         this.isLoading = false;
 

@@ -4,9 +4,9 @@
       <div class="catalog__header-container">
         <BaseHeading variant="h2">Catalog</BaseHeading>
         <CategoryTabs
-          :items="allCategories"
-          @onCategoryClick="setActiveCategory"
-          v-if="isProducts"
+            :items="allCategories"
+            @onCategoryClick="setActiveCategory"
+            v-if="isProducts"
         />
       </div>
       <BaseDivider />
@@ -14,12 +14,12 @@
 
     <FadeTransition>
       <FailedHttpRequest
-        :errorCode="error.errorCode"
-        :errorMessage="error.message"
-        :timeout="error.timeout"
-        :serverIsDown="serverStatus.isDown"
-        :serverErrorMessage="serverStatus.message"
-        v-if="error?.isError && !isLoading"
+          :errorCode="error.errorCode"
+          :errorMessage="error.message"
+          :timeout="error.timeout"
+          :serverIsDown="serverStatus.isDown"
+          :serverErrorMessage="serverStatus.message"
+          v-if="error?.isError && !isLoading"
       />
     </FadeTransition>
 
@@ -65,7 +65,7 @@ const setActiveCategory = (selectedCategory) => {
 const productList = computed(() => {
   if (activeCategory.value === "all") return products.value;
   return products.value.filter(
-    (product) => product.category === activeCategory.value
+      (product) => product.category === activeCategory.value
   );
 });
 </script>
