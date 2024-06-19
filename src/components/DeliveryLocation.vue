@@ -1,15 +1,15 @@
 <template>
   <div class="delivery-location">
     <BaseHeading variant="h3" v-if="isLocationVisible">
-      <span class="delivery-location__title">Your location is:</span>
+      <span class="delivery-location__title">Ваше местоположение:</span>
       {{ location }}
     </BaseHeading>
     <div v-if="!isSelected" class="delivery-location__confirm-block">
-      <BaseHeading variant="h3">Is that correct?</BaseHeading>
+      <BaseHeading variant="h3">Это правильно?</BaseHeading>
       <div class="delivery-location__actions">
-        <BaseButton variant="outlined" @click="confirm(false)">No</BaseButton>
+        <BaseButton variant="outlined" @click="confirm(false)">Нет</BaseButton>
         <BaseButton variant="contained" mode="success" @click="confirm(true)"
-          >Yes</BaseButton
+        >Да</BaseButton
         >
       </div>
     </div>
@@ -26,9 +26,9 @@ import BaseHeading from "./UI/BaseHeading.vue";
 import { ref } from "@vue/reactivity";
 import { computed } from "@vue/runtime-core";
 
-const MESSAGE_SUCCESS = "Thank you. Your region will be set automatically";
+const MESSAGE_SUCCESS = "Спасибо. Ваш регион будет установлен автоматически.";
 const MESSAGE_FAIL =
-  "We are sorry. Please enter your delivery region manually in the form below";
+    "Извините. Пожалуйста, введите ваш регион доставки вручную в форме ниже.";
 
 const emit = defineEmits(["onConfirmLocationClick"]);
 const props = defineProps({
@@ -48,13 +48,13 @@ const confirm = (isConfirmed) => {
 };
 
 const message = computed(() =>
-  isCorrectRegion.value ? MESSAGE_SUCCESS : MESSAGE_FAIL
+    isCorrectRegion.value ? MESSAGE_SUCCESS : MESSAGE_FAIL
 );
 
 const isLocationVisible = computed(
-  () =>
-    (props.location && !isSelected.value) ||
-    (props.location && isSelected.value && isCorrectRegion.value)
+    () =>
+        (props.location && !isSelected.value) ||
+        (props.location && isSelected.value && isCorrectRegion.value)
 );
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="delivery">
-    <BaseHeading variant="h2">Choose delivery</BaseHeading>
+    <BaseHeading variant="h2">Выберите способ осмотра</BaseHeading>
     <BaseSelect :options="deliveryOptions" @onSelectClick="selectDelivery" />
     <h3 v-if="selectedDiveryOption.name">{{ price }}</h3>
   </div>
@@ -15,15 +15,15 @@ import { computed } from "@vue/runtime-core";
 const DELIVERY_OPTIONS = [
   {
     id: 1,
-    name: "Pickup",
+    name: "Самовыезд",
     type: "pickup",
     price: 0,
   },
   {
-    id: 1,
-    name: "Delivery",
+    id: 2,
+    name: "Доставка авто",
     type: "delivery",
-    price: 10,
+    price: 10000,
   },
 ];
 
@@ -37,9 +37,9 @@ const selectDelivery = (deliveryOption) => {
 };
 
 const price = computed(() =>
-  selectedDiveryOption.price === 0
-    ? "It's free"
-    : "Price: $" + selectedDiveryOption.price
+    selectedDiveryOption.price === 0
+        ? "Бесплатно"
+        : "Цена: " + selectedDiveryOption.price + " руб."
 );
 </script>
 

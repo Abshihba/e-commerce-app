@@ -1,24 +1,24 @@
 <template>
   <FailedHttpRequest
-    :errorCode="error.errorCode"
-    :errorMessage="error.message"
-    :timeout="error.timeout"
-    :serverIsDown="serverStatus.isDown"
-    :serverErrorMessage="serverStatus.message"
-    v-if="error?.isError && !isLoading"
+      :errorCode="error.errorCode"
+      :errorMessage="error.message"
+      :timeout="error.timeout"
+      :serverIsDown="serverStatus.isDown"
+      :serverErrorMessage="serverStatus.message"
+      v-if="error?.isError && !isLoading"
   />
 
   <div class="product-page" v-else>
     <Loader v-if="isLoading" />
     <BaseCard class="product-page__card" v-else>
       <img
-        :src="product.image"
-        :alt="product.title"
-        class="product-page__card-image"
+          :src="product.image"
+          :alt="product.title"
+          class="product-page__card-image"
       />
       <div class="product-page__card-content">
-        <BaseHeading variant="h1" class="product-page__card-title"
-          >{{ product.title }}
+        <BaseHeading variant="h1" class="product-page__card-title">
+          {{ product.title }}
         </BaseHeading>
 
         <BaseDivider />
@@ -26,47 +26,41 @@
           <StarRating :rating="product.rating.rate" />
 
           <BaseIconButton
-            @click="like"
-            variant="contained"
-            :text="likeBtnText"
-            iconColor="lightgray"
-            iconHoverColor="#ef2525"
-            iconActiveColor="#ef2525"
-            :isActive="isProductLiked"
-            opacity="0.5"
-            :class="likeClass"
+              @click="like"
+              variant="contained"
+              :text="likeBtnText"
+              iconColor="lightgray"
+              iconHoverColor="#ef2525"
+              iconActiveColor="#ef2525"
+              :isActive="isProductLiked"
+              opacity="0.5"
+              :class="likeClass"
           >
             <LikeIcon />
           </BaseIconButton>
         </div>
         <div class="product-page__card-actions">
-          <BaseHeading variant="h2">${{ product.price }}</BaseHeading>
+          <BaseHeading variant="h2">{{ product.price }} руб.</BaseHeading>
           <div class="product-page__card-actions-buy">
-            <QuantityBlock
-              @decrement="decrementQuantity"
-              @increment="incrementQuantity"
-              :quantity="quantity"
-              v-if="!isProductAlreadyInCart"
-            />
             <BaseButton
-              variant="contained"
-              mode="success"
-              @click="addToCart"
-              v-if="!isProductAlreadyInCart"
-              >Add to cart</BaseButton
+                variant="contained"
+                mode="success"
+                @click="addToCart"
+                v-if="!isProductAlreadyInCart"
+            >Забронировать</BaseButton
             >
 
             <BaseButton
-              @click="openModal('cart')"
-              variant="contained"
-              mode="success"
-              v-else
-              >Already is in your Cart</BaseButton
+                @click="openModal('cart')"
+                variant="contained"
+                mode="success"
+                v-else
+            >Уже забронировано</BaseButton
             >
           </div>
         </div>
         <div class="product-page__card-description">
-          <BaseHeading variant="h3">Description</BaseHeading>
+          <BaseHeading variant="h3">Описание</BaseHeading>
           <p>
             {{ product.description }}
           </p>
@@ -78,7 +72,6 @@
 
 <script setup>
 import BaseHeading from "@/components/UI/BaseHeading.vue";
-import QuantityBlock from "@/components/UI/QuantityBlock.vue";
 import BaseButton from "@/components/UI/Buttons/BaseButton.vue";
 import BaseCard from "@/components/UI/BaseCard.vue";
 import BaseDivider from "@/components/UI/BaseDivider.vue";
@@ -94,10 +87,8 @@ import { storeToRefs } from "pinia";
 import { useLikeStore } from "@/store/useLikeStore";
 import { useCartStore } from "@/store/useCartStore";
 import { useCommonStore } from "@/store/useCommonStore";
-import { useQuantity } from "@/hooks/quantity.js";
 
 const route = useRoute();
-const [quantity, incrementQuantity, decrementQuantity] = useQuantity();
 
 const productStore = useProductStore();
 const likeStore = useLikeStore();
@@ -107,22 +98,19 @@ const { isLoading, error, serverStatus } = storeToRefs(productStore);
 
 const product = computed(() => {
   const thisProduct = productStore.product(route.params.id);
-  return {
-    ...thisProduct,
-    quantity: quantity.value,
-  };
+  return thisProduct;
 });
 
 const isProductLiked = computed(
-  () => likeStore.likedProduct(product.value.id) !== undefined
+    () => likeStore.likedProduct(product.value.id) !== undefined
 );
 
 const likeBtnText = computed(() =>
-  isProductLiked.value ? "In your wishlist" : "Add to wishlist"
+    isProductLiked.value ? "В вашем списке желаний" : "Добавить в список желаний"
 );
 
 const isProductAlreadyInCart = computed(
-  () => cartStore.productInCart(route.params.id) !== undefined
+    () => cartStore.productInCart(route.params.id) !== undefined
 );
 
 const likeClass = computed(() => [

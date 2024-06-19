@@ -27,19 +27,19 @@
           <p class="card__rating-text">{{ rating.rate }}</p>
         </div>
 
-        <h3 class="card__price">${{ price }}</h3>
+        <h3 class="card__price">{{ price }} руб.</h3>
 
         <p class="card__description">{{ description }}</p>
 
         <div class="card__actions" v-if="!isProductInCart">
           <QuantityBlock @decrement="decrementQuantity" @increment="incrementQuantity" :quantity="quantity" />
-          <BaseIconButton variant="contained" text="Add to cart" iconColor="lightgray" iconHoverColor="#ffa801" @click="addToCart">
+          <BaseIconButton variant="contained" text="Забронировать" iconColor="lightgray" iconHoverColor="#ffa801" @click="addToCart">
             <CartIcon />
           </BaseIconButton>
         </div>
 
         <FadeTransition>
-          <BaseButton @click="openModal('cart')" variant="contained" mode="success" v-if="isProductInCart">Already is in your Cart</BaseButton>
+          <BaseButton @click="openModal('cart')" variant="contained" mode="success" v-if="isProductInCart">Уже в заказе</BaseButton>
         </FadeTransition>
       </div>
     </BaseCard>
@@ -138,7 +138,6 @@ const addToCart = () => {
   align-items: flex-start;
   min-height: 412px;
 }
-
 .card__image-container {
   align-self: center;
   position: relative;

@@ -2,7 +2,7 @@
   <div class="catalog">
     <div class="catalog__header">
       <div class="catalog__header-container">
-        <BaseHeading variant="h2">Catalog</BaseHeading>
+        <BaseHeading variant="h2">Каталог</BaseHeading>
         <CategoryTabs
             :items="allCategories"
             @onCategoryClick="setActiveCategory"
@@ -40,7 +40,7 @@ import ProductList from "./ProductList.vue";
 import FailedHttpRequest from "./FailedHttpRequest.vue";
 import Loader from "./UI/Loader.vue";
 import FadeTransition from "./UI/FadeTransition.vue";
-import BaseDivider from '@/components/UI/BaseDivider.vue'
+import BaseDivider from '@/components/UI/BaseDivider.vue';
 import { ref } from "@vue/reactivity";
 import { computed } from "@vue/runtime-core";
 import { useProductStore } from "@/store/useProductStore";
@@ -56,14 +56,14 @@ const {
   serverStatus,
 } = storeToRefs(productStore);
 
-const activeCategory = ref("all");
+const activeCategory = ref("все");
 
 const setActiveCategory = (selectedCategory) => {
   activeCategory.value = selectedCategory;
 };
 
 const productList = computed(() => {
-  if (activeCategory.value === "all") return products.value;
+  if (activeCategory.value === "все") return products.value;
   return products.value.filter(
       (product) => product.category === activeCategory.value
   );

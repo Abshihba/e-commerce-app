@@ -1,10 +1,10 @@
 <template>
   <div class="checkout">
-    <BaseHeading variant="h1">Checkout</BaseHeading>
+    <BaseHeading variant="h1">Оформление Бронирования</BaseHeading>
 
-    <BasePlaceholder v-if="!isProductsInCart"
-      >Cart is empty. Nothing to render</BasePlaceholder
-    >
+    <BasePlaceholder v-if="!isProductsInCart">
+      Бронирование пусто. Нечего отображать.
+    </BasePlaceholder>
 
     <div class="checkout__content" v-if="isProductsInCart">
       <BaseCard>
@@ -12,24 +12,18 @@
       </BaseCard>
 
       <BaseCard class="checkout__content">
-        <ChooseDelivery
-          @onSelectDeliveryOption="setDeliveryOption"
-        ></ChooseDelivery>
+        <ChooseDelivery @onSelectDeliveryOption="setDeliveryOption"></ChooseDelivery>
 
         <FadeTransition>
           <DeliveryLocation
-            v-if="isGeoApiLocationAllowed && delivery?.type === 'delivery'"
-            :location="location"
-            @onConfirmLocationClick="confirmLocation"
+              v-if="isGeoApiLocationAllowed && delivery?.type === 'delivery'"
+              :location="location"
+              @onConfirmLocationClick="confirmLocation"
           />
         </FadeTransition>
       </BaseCard>
 
-      <CheckoutForm
-        :delivery="delivery"
-        :location="confirmedLocation"
-        v-if="delivery"
-      ></CheckoutForm>
+      <CheckoutForm :delivery="delivery" :location="confirmedLocation" v-if="delivery"></CheckoutForm>
     </div>
   </div>
 </template>
@@ -59,8 +53,8 @@ const isGeoApiLocationAllowed = ref(false);
 
 const setDeliveryOption = async (deliveryOption) => {
   Object.assign(delivery, deliveryOption);
-  if (deliveryOption.type === "delivery") {
-    location.value = "";
+  if (deliveryOption.type === 'delivery') {
+    location.value = '';
     await getLocation();
   }
 };
@@ -78,7 +72,7 @@ const getLocation = async () => {
 
 const confirmLocation = async (isConfirmed) => {
   if (!isConfirmed) {
-    confirmedLocation.value = "";
+    confirmedLocation.value = '';
     return;
   }
 

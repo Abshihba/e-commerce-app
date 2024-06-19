@@ -1,14 +1,14 @@
 <template>
   <div class="checkout-success">
-    <BaseHeading variant="h1" class="checkout-success__title"
-      >Success</BaseHeading
-    >
-    <BaseHeading variant="h3" class="checkout-success__subtitle"
-      >You will be redirected to homepage in</BaseHeading
-    >
+    <BaseHeading variant="h1" class="checkout-success__title">
+      Успех
+    </BaseHeading>
+    <BaseHeading variant="h3" class="checkout-success__subtitle">
+      Вы будете перенаправлены на главную страницу через
+    </BaseHeading>
     <CountDownTimer
-      :timeout="5"
-      @onTimerEnd="redirectToHomepage"
+        :timeout="5"
+        @onTimerEnd="redirectToHomepage"
     ></CountDownTimer>
   </div>
 </template>

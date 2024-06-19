@@ -1,57 +1,54 @@
 import { defineStore } from 'pinia';
 
 export const useCartStore = defineStore('cart', {
-  state: () => {
-    return {
-      cart: [],
-    };
-  },
+  state: () => ({
+    cart: [],
+  }),
 
   getters: {
-    productInCart: (state) => (id) => {
-      return state.cart.find((productItem) => productItem.id === +id);
-    },
-
     isProductsInCart: (state) => state.cart.length > 0,
-
-    totalProductsAddedToCart: (state) => {
-      if (state.cart.length === 0) return;
-      return state.cart.reduce((totalQuantity, product) => totalQuantity + product.quantity, 0);
-    },
-
-    totalAmount: (state) => {
-      if (state.cart.length === 0) return;
-      return +state.cart.reduce((amount, product) => (amount += product.price * product.quantity), 0).toFixed(2);
-    },
+    totalProductsAddedToCart: (state) => state.cart.reduce((total, product) => total + product.quantity, 0),
+    totalAmount: (state) => state.cart.reduce((total, product) => total + product.price * product.quantity, 0),
+    productInCart: (state) => (id) => state.cart.find((product) => product.id === id),
   },
 
   actions: {
     setProductToCart(product) {
-      this.cart.push(product);
+      const productInCart = this.productInCart(product.id);
+
+      if (productInCart) {
+        productInCart.quantity += product.quantity;
+      } else {
+        this.cart.push(product);
+      }
     },
 
     setProductsFromLStoCart(products) {
-      if (!products) return;
-
-      products.forEach((product) => this.setProductToCart(product));
+      this.cart = products;
     },
 
-    incrementQuantity(productId) {
-      const product = this.productInCart(productId);
-      product.quantity++;
+    incrementQuantity(id) {
+      const productInCart = this.productInCart(id);
+      if (productInCart) {
+        productInCart.quantity += 1;
+      }
     },
 
-    decrementQuantity(productId) {
-      const product = this.productInCart(productId);
-      product.quantity--;
+    decrementQuantity(id) {
+      const productInCart = this.productInCart(id);
+      if (productInCart && productInCart.quantity > 1) {
+        productInCart.quantity -= 1;
+      } else {
+        this.removeProductFromCart(id);
+      }
     },
 
-    removeProductFromCart(productId) {
-      this.cart = this.cart.filter((product) => product.id !== productId);
+    removeProductFromCart(id) {
+      this.cart = this.cart.filter((product) => product.id !== id);
     },
 
     clearCart() {
-      this.$reset();
+      this.cart = [];
     },
   },
 });

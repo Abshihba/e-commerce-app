@@ -1,39 +1,36 @@
 <template>
   <ul class="likes">
     <li
-      v-for="likedProduct in likes"
-      :key="likedProduct.id"
-      class="likes__item"
+        v-for="likedProduct in likes"
+        :key="likedProduct.id"
+        class="likes__item"
     >
       <img
-        :src="likedProduct.image"
-        :alt="likedProduct.title"
-        class="likes__image"
-        @click="goToProductPage(likedProduct.id)"
+          :src="likedProduct.image"
+          :alt="likedProduct.title"
+          class="likes__image"
+          @click="goToProductPage(likedProduct.id)"
       />
       <div class="likes__product-info">
         <span
-          class="likes__product-info-title"
-          @click="goToProductPage(likedProduct.id)"
-          >{{ likedProduct.title }}</span
-        >
+            class="likes__product-info-title"
+            @click="goToProductPage(likedProduct.id)"
+        >{{ likedProduct.title }}</span>
 
         <div class="likes__product-info-container">
           <div class="likes__rating">
             <img src="../assets/star-icon.svg" />
             <p class="card__rating-text">{{ likedProduct.rating.rate }}</p>
           </div>
-          <span class="likes__price"
-            ><strong>${{ likedProduct.price }}</strong></span
-          >
+          <span class="likes__price"><strong>{{ likedProduct.price }} руб.</strong></span>
         </div>
       </div>
       <BaseIconButton
-        @click="unLike(likedProduct)"
-        variant="contained"
-        iconHoverColor="#ef2525"
-        iconColor="#74747474"
-        opacity="1"
+          @click="unLike(likedProduct)"
+          variant="contained"
+          iconHoverColor="#ef2525"
+          iconColor="#74747474"
+          opacity="1"
       >
         <DeleteIcon />
       </BaseIconButton>

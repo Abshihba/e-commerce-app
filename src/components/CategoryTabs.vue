@@ -25,7 +25,7 @@ const props = defineProps({
 
 const emit = defineEmits(['onCategoryClick']);
 
-const selectedCategory = ref('all');
+const selectedCategory = ref('Все');
 
 const selectCategory = (category) => {
   selectedCategory.value = category;

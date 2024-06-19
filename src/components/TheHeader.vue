@@ -8,7 +8,7 @@
       ]"
       disabled="true"
     >
-      <img src="@/assets/logo.svg" class="header__logo" />
+      <img src="@/assets/logo.png" class="header__logo" />
     </router-link>
 
     <ul>

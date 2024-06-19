@@ -2,57 +2,47 @@
   <section class="cart">
     <div class="cart__mobile">
       <div class="cart__grid">
-        <label class="cart__title">Photo</label>
-        <label class="cart__title">Title</label>
-        <label class="cart__title">Quantity</label>
-        <label class="cart__title">Price</label>
-        <label class="cart__title">Subtotal</label>
+        <label class="cart__title">Фото</label>
+        <label class="cart__title">Название</label>
+        <label class="cart__title">Цена</label>
+        <label class="cart__title">Итого</label>
       </div>
     </div>
 
     <ul class="cart__list">
       <li class="cart__grid" v-for="product in cart" :key="product.id">
         <img
-          :src="product.image"
-          class="cart__img"
-          :alt="product.title"
-          @click="goToProductPage(product.id)"
+            :src="product.image"
+            class="cart__img"
+            :alt="product.title"
+            @click="goToProductPage(product.id)"
         />
         <p
-          class="cart__item-title cart__item-text"
-          @click="goToProductPage(product.id)"
+            class="cart__item-title cart__item-text"
+            @click="goToProductPage(product.id)"
         >
           {{ product.title }}
         </p>
 
         <div class="cart__mobile">
-          <span>Quantity:</span>
-          <QuantityBlock
-            :quantity="product.quantity"
-            @increment="incrementQuantity(product.id)"
-            @decrement="decrementQuantity(product.id)"
-          ></QuantityBlock>
+          <span>Цена:</span>
+          <p class="cart__item-text">{{ product.price }} руб.</p>
         </div>
 
         <div class="cart__mobile">
-          <span>Price:</span>
-          <p class="cart__item-text">${{ product.price }}</p>
-        </div>
-
-        <div class="cart__mobile">
-          <span>Subtotal:</span>
+          <span>Итого:</span>
           <p class="cart__item-text">
-            ${{ (product.price * product.quantity).toFixed(2) }}
+            {{ product.price }} руб.
           </p>
         </div>
 
         <div class="cart__mobile-action">
           <BaseIconButton
-            @click="removeProductFromCart(product.id)"
-            variant="contained"
-            iconHoverColor="#ef2525"
-            iconColor="#74747474"
-            opacity="1"
+              @click="removeProductFromCart(product.id)"
+              variant="contained"
+              iconHoverColor="#ef2525"
+              iconColor="#74747474"
+              opacity="1"
           >
             <DeleteIcon />
           </BaseIconButton>
@@ -61,22 +51,22 @@
     </ul>
 
     <div class="cart__totals-block">
-      <span class="cart__totals-block-title">Total quantity:</span>
-      <p>{{ totalProductsAddedToCart }} pcs</p>
+      <span class="cart__totals-block-title">Всего забронировано:</span>
+      <p>{{ totalProductsAddedToCart }} шт.</p>
     </div>
     <div class="cart__totals-block">
-      <span class="cart__totals-block-title">Total amount: </span>
-      <p>${{ totalAmount }}</p>
+      <span class="cart__totals-block-title">Общая сумма: </span>
+      <p>{{ totalAmount }} руб.</p>
     </div>
 
     <div class="cart__totals-block" v-if="delivery && delivery.name">
-      <span class="cart__totals-block-title">Delivery price:</span>
-      <p>{{ !isFreeDelivery ? "$" : "" }}{{ deliveryPrice }}</p>
+      <span class="cart__totals-block-title">Стоимость доставки:</span>
+      <p>{{ !isFreeDelivery ? "" : "Бесплатно" }}{{ deliveryPrice }} руб.</p>
     </div>
 
     <div class="cart__totals-block" v-if="delivery && delivery.name">
-      <span class="cart__totals-block-title">Total:</span>
-      <p>${{ total }}</p>
+      <span class="cart__totals-block-title">Итого:</span>
+      <p>{{ total }} руб.</p>
     </div>
   </section>
 </template>
@@ -84,43 +74,23 @@
 <script setup>
 import DeleteIcon from "./icons/DeleteIcon.vue";
 import BaseIconButton from "./UI/Buttons/BaseIconButton.vue";
-import QuantityBlock from "./UI/QuantityBlock.vue";
 import { computed } from "@vue/runtime-core";
 import { useRouter } from "vue-router";
 import { useCartStore } from "@/store/useCartStore";
 import { storeToRefs } from "pinia";
+
 const props = defineProps({
-  // products: {
-  //   type: Array,
-  //   required: true,
-  // },
   delivery: {
     type: Object,
     required: false,
   },
-  // totalProductsAddedToCart: {
-  //   type: Number,
-  //   required: true,
-  // },
-  // totalAmount: {
-  //   type: Number,
-  //   required: true,
-  // },
 });
 
 const emit = defineEmits(["onClick"]);
 
 const router = useRouter();
 const cartStore = useCartStore();
-const {cart, totalProductsAddedToCart, totalAmount} = storeToRefs(cartStore)
-
-const incrementQuantity = (id) => {
-  cartStore.incrementQuantity(id);
-};
-
-const decrementQuantity = (id) => {
-  cartStore.decrementQuantity(id);
-};
+const { cart, totalProductsAddedToCart, totalAmount } = storeToRefs(cartStore);
 
 const removeProductFromCart = (id) => {
   cartStore.removeProductFromCart(id);
@@ -130,13 +100,11 @@ const isFreeDelivery = computed(() => props.delivery.price === 0);
 
 const deliveryPrice = computed(() => {
   if (!props.delivery.name) return;
-  return isFreeDelivery.value ? "Free" : props.delivery.price;
+  return isFreeDelivery.value ? "Бесплатно" : props.delivery.price;
 });
 
 const total = computed(() =>
-  isFreeDelivery.value
-    ? totalAmount.value
-    : (deliveryPrice.value + totalAmount.value).toFixed(2)
+    isFreeDelivery.value ? totalAmount.value : (deliveryPrice.value + totalAmount.value).toFixed(2)
 );
 
 const goToProductPage = (id) => {
@@ -232,7 +200,7 @@ const goToProductPage = (id) => {
     grid-gap: 15px;
     color: #222;
     padding: 15px 0;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px солидный светло-серый;
   }
 
   .cart__title {

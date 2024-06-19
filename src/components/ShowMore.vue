@@ -1,6 +1,6 @@
 <template>
   <BaseButton variant="contained" mode="primary" @click="loadMore"
-    >Show more</BaseButton
+    >Показать больше</BaseButton
   >
 </template>
 

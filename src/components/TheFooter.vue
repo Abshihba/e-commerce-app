@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <BaseDivider />
-    <BaseHeading variant="h1" class="footer__title">The Footer</BaseHeading>
+    <BaseHeading variant="h1" class="footer__title">Подвал</BaseHeading>
   </footer>
 </template>
 

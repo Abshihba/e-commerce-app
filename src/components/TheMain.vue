@@ -1,16 +1,16 @@
 <template>
   <main class="main">
     <teleport to="body">
-      <BaseModal :isModalOpen="isCartModalOpen" type="cart" title="Your cart">
+      <BaseModal :isModalOpen="isCartModalOpen" type="cart" title="Ваши заказы">
         <Cart v-if="isProductsInCart" @onClick="closeModal('cart')" />
-        <p v-else>Your cart is empty</p>
+        <p v-else>Заказов нет</p>
         <template #actions>
           <router-link to="/checkout" v-if="isProductsInCart">
             <BaseButton
-              variant="contained"
-              mode="success"
-              @click="closeModal('cart')"
-              >Checkout</BaseButton
+                variant="contained"
+                mode="success"
+                @click="closeModal('cart')"
+            >Оформить заказ</BaseButton
             >
           </router-link>
         </template>
@@ -19,12 +19,12 @@
 
     <teleport to="body">
       <BaseModal
-        :isModalOpen="isLikesModalOpen"
-        type="likes"
-        title="Your likes"
+          :isModalOpen="isLikesModalOpen"
+          type="likes"
+          title="Ваши лайки"
       >
         <Likes v-if="isLikes" @onClick="closeModal('likes')" />
-        <p v-else>No likes yet</p>
+        <p v-else>Пока нет лайков</p>
       </BaseModal>
     </teleport>
 
@@ -65,19 +65,19 @@ const closeModal = (modal) => {
 };
 
 watch(
-  () => cart.value,
-  () => {
-    setToLocalStorage("cart", cart.value);
-  },
-  { deep: true }
+    () => cart.value,
+    () => {
+      setToLocalStorage("cart", cart.value);
+    },
+    { deep: true }
 );
 
 watch(
-  () => likes.value,
-  () => {
-    setToLocalStorage("likes", likes.value);
-  },
-  { deep: true }
+    () => likes.value,
+    () => {
+      setToLocalStorage("likes", likes.value);
+    },
+    { deep: true }
 );
 
 onMounted(() => {

@@ -1,11 +1,11 @@
 <template>
   <section class="page-not-found">
-    <BaseHeading variant="h1">Page not found</BaseHeading>
+    <BaseHeading variant="h1">Страница не найдена</BaseHeading>
     <BaseHeading variant="h1" class="page-not-found__error">404</BaseHeading>
 
-    <BaseHeading variant="h3" class="page-not-found__text"
-      >You will be redirected to homepage in</BaseHeading
-    >
+    <BaseHeading variant="h3" class="page-not-found__text">
+      Вы будете перенаправлены на главную страницу через
+    </BaseHeading>
     <CountDownTimer :timeout="5" @onTimerEnd="redirectToHomepage" />
   </section>
 </template>
@@ -13,7 +13,7 @@
 <script setup>
 import BaseHeading from "@/components/UI/BaseHeading.vue";
 import CountDownTimer from "@/components/CountDownTimer.vue";
-import { useRouter } from "vue-router";
+import {useRouter} from "vue-router";
 
 const router = useRouter();
 

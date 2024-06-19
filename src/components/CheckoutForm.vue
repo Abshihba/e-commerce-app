@@ -1,27 +1,27 @@
 <template>
   <FadeTransition>
     <BaseCard>
-      <BaseHeading variant="h2">Your personal data</BaseHeading>
+      <BaseHeading variant="h2">Ваши персональные данные</BaseHeading>
       <div class="checkout-form">
         <BaseForm @submit.prevent="submitForm">
           <ul class="checkout-form__input-list">
             <li v-for="input in inputs" :key="input.label">
               <BaseInput
-                :placeholder="input.placeholder"
-                :label="input.label"
-                :type="input.type"
-                :name="input.name"
-                :required="input.required"
-                :error="formError[input?.name]"
-                :value="userInput[input.name]"
-                :handleChange="handleChange"
+                  :placeholder="input.placeholder"
+                  :label="input.label"
+                  :type="input.type"
+                  :name="input.name"
+                  :required="input.required"
+                  :error="formError[input?.name]"
+                  :value="userInput[input.name]"
+                  :handleChange="handleChange"
               />
             </li>
           </ul>
 
-          <BaseButton variant="contained" type="submit" mode="success"
-            >Submit</BaseButton
-          >
+          <BaseButton variant="contained" type="submit" mode="success">
+            Отправить
+          </BaseButton>
         </BaseForm>
       </div>
     </BaseCard>
@@ -90,16 +90,16 @@ const validateForm = () => {
   let isFormValid = true;
   const isNameInputValid = userInput.name.trim().length > 2;
   const isPhoneValid =
-    userInput.phone.trim().length >= 10 && userInput.phone.trim().length <= 20;
+      userInput.phone.trim().length >= 10 && userInput.phone.trim().length <= 20;
 
   if (!isNameInputValid || !isPhoneValid) {
     formError.name = isNameInputValid
-      ? ""
-      : "Name cannot be less or equal than 2 letters";
-    (formError.phone = isPhoneValid
-      ? ""
-      : "Phone number digits range is 10-20"),
-      (isFormValid = false);
+        ? ""
+        : "Имя не может быть короче 3 символов";
+    formError.phone = isPhoneValid
+        ? ""
+        : "Номер телефона должен быть от 10 до 20 цифр";
+    isFormValid = false;
   }
 
   return isFormValid;
@@ -144,11 +144,11 @@ const inputs = computed(() => {
 });
 
 watch(
-  () => props.location,
-  () => {
-    userInput.location = props.location;
-  },
-  { immediate: true }
+    () => props.location,
+    () => {
+      userInput.location = props.location;
+    },
+    { immediate: true }
 );
 </script>
 
